@@ -22,7 +22,13 @@ ChartJS.register(
     Legend
 );
 
-export default function TrendChart({ data, testName, unit }) {
+interface TrendChartProps {
+    data: { date: string; value: number }[];
+    testName: string;
+    unit: string;
+}
+
+export default function TrendChart({ data, testName, unit }: TrendChartProps) {
     if (!data || data.length === 0) return <p>No history available.</p>;
 
     const chartData = {
@@ -38,11 +44,11 @@ export default function TrendChart({ data, testName, unit }) {
         ],
     };
 
-    const options = {
+    const options: any = {
         responsive: true,
         plugins: {
             legend: {
-                position: 'top',
+                position: 'top' as const,
             },
             title: {
                 display: true,

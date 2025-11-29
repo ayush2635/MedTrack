@@ -14,7 +14,7 @@ export default function ResetPassword() {
     const { token } = useParams();
     const router = useRouter();
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setMessage('');
         setError('');
@@ -32,7 +32,7 @@ export default function ResetPassword() {
             setTimeout(() => {
                 router.push('/login');
             }, 2000);
-        } catch (err) {
+        } catch (err: any) {
             setError(err.response?.data?.message || 'Something went wrong');
         } finally {
             setIsLoading(false);

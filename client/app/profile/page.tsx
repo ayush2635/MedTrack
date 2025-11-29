@@ -31,11 +31,11 @@ export default function Profile() {
         }
     }, [user]);
 
-    const handleChange = (e) => {
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setIsLoading(true);
         setMessage({ type: '', text: '' });
@@ -67,7 +67,7 @@ export default function Profile() {
             // Optional: Reload to reflect changes globally if needed, or just let the user see the success message
             setTimeout(() => window.location.reload(), 1000);
 
-        } catch (error) {
+        } catch (error: any) {
             setMessage({ type: 'error', text: error.response?.data?.message || 'Failed to update profile' });
         } finally {
             setIsLoading(false);

@@ -3,10 +3,26 @@
 import { CheckCircle, ArrowUp, ArrowDown, HelpCircle } from 'lucide-react';
 import Link from 'next/link';
 
-export default function ResultsTable({ results }) {
+interface TestResult {
+    canonicalName: string;
+    value: string | number;
+    unit: string;
+    flag: string;
+    aliases?: string[];
+    referenceRange?: {
+        low: number;
+        high: number;
+    };
+}
+
+interface ResultsTableProps {
+    results: TestResult[];
+}
+
+export default function ResultsTable({ results }: ResultsTableProps) {
     if (!results || results.length === 0) return null;
 
-    const getStatusConfig = (flag) => {
+    const getStatusConfig = (flag: string) => {
         switch (flag?.toLowerCase()) {
             case 'high':
                 return { color: 'text-red-700 bg-red-50 border-red-100', icon: <ArrowUp className="w-4 h-4" /> };

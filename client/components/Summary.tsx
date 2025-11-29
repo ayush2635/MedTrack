@@ -2,7 +2,12 @@
 
 import { User, Stethoscope } from 'lucide-react';
 
-export default function Summary({ patientSummary, clinicianSummary }) {
+interface SummaryProps {
+    patientSummary?: string;
+    clinicianSummary?: string;
+}
+
+export default function Summary({ patientSummary, clinicianSummary }: SummaryProps) {
     if (!patientSummary && !clinicianSummary) return null;
 
     return (

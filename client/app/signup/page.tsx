@@ -17,17 +17,17 @@ export default function Signup() {
     const [error, setError] = useState('');
     const [isLoading, setIsLoading] = useState(false);
 
-    const handleChange = (e) => {
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setError('');
         setIsLoading(true);
         try {
             await signup(formData.email, formData.password, formData.name, Number(formData.age), formData.sex);
-        } catch (err) {
+        } catch (err: any) {
             setError(err.response?.data?.message || 'Error creating account');
         } finally {
             setIsLoading(false);

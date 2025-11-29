@@ -3,10 +3,15 @@
 import { useState, useCallback } from 'react';
 import { Upload, FileText, Loader2, Image as ImageIcon } from 'lucide-react';
 
-export default function FileUpload({ onFileSelect, isProcessing }) {
+interface FileUploadProps {
+    onFileSelect: (file: File) => void;
+    isProcessing: boolean;
+}
+
+export default function FileUpload({ onFileSelect, isProcessing }: FileUploadProps) {
     const [dragActive, setDragActive] = useState(false);
 
-    const handleDrag = useCallback((e) => {
+    const handleDrag = useCallback((e: React.DragEvent) => {
         e.preventDefault();
         e.stopPropagation();
         if (e.type === 'dragenter' || e.type === 'dragover') {
@@ -16,7 +21,7 @@ export default function FileUpload({ onFileSelect, isProcessing }) {
         }
     }, []);
 
-    const handleDrop = useCallback((e) => {
+    const handleDrop = useCallback((e: React.DragEvent) => {
         e.preventDefault();
         e.stopPropagation();
         setDragActive(false);
@@ -25,7 +30,7 @@ export default function FileUpload({ onFileSelect, isProcessing }) {
         }
     }, [onFileSelect]);
 
-    const handleChange = useCallback((e) => {
+    const handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
         e.preventDefault();
         if (e.target.files && e.target.files[0]) {
             onFileSelect(e.target.files[0]);
@@ -35,8 +40,8 @@ export default function FileUpload({ onFileSelect, isProcessing }) {
     return (
         <div
             className={`relative group border-2 border-dashed rounded-2xl p-10 text-center transition-all duration-300 ease-in-out ${dragActive
-                    ? 'border-teal-500 bg-teal-50 scale-[1.02]'
-                    : 'border-gray-200 hover:border-teal-400 hover:bg-gray-50'
+                ? 'border-teal-500 bg-teal-50 scale-[1.02]'
+                : 'border-gray-200 hover:border-teal-400 hover:bg-gray-50'
                 }`}
             onDragEnter={handleDrag}
             onDragLeave={handleDrag}
