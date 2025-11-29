@@ -11,7 +11,7 @@ export default function ForgotPassword() {
     const [error, setError] = useState('');
     const [isLoading, setIsLoading] = useState(false);
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setMessage('');
         setError('');
@@ -20,7 +20,7 @@ export default function ForgotPassword() {
         try {
             const { data } = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/api/auth/forgotpassword`, { email });
             setMessage(data.message);
-        } catch (err) {
+        } catch (err: any) {
             setError(err.response?.data?.message || 'Something went wrong');
         } finally {
             setIsLoading(false);
